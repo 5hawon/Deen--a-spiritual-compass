@@ -103,6 +103,7 @@ class PrayerTimeCard extends StatelessWidget {
               style: TextStyle(
                 fontSize: 22.0,
                 color: Colors.white,
+                
               ),
             ),
           ],
