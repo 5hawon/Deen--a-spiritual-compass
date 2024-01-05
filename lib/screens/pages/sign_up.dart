@@ -1,4 +1,8 @@
+import 'package:deen/screens/quran_screen.dart';
+import 'package:deen/screens/pages/sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -8,6 +12,8 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
+
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -104,9 +110,26 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       SizedBox(height: 20),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           // Your sign-up logic here (without Firebase)
-                          Navigator.pushNamed(context, '/signin');
+                          try {
+                            UserCredential userCredential =
+                                await _auth.createUserWithEmailAndPassword(
+                              email: _emailTextController.text.trim(),
+                              password: _passwordTextController.text.trim(),
+                            );
+                            if (userCredential != null) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SignInPage(),
+                                ),
+                              );
+                              print("Successfully Created");
+                            }
+                          } catch (e) {
+                            print(e);
+                          }
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(

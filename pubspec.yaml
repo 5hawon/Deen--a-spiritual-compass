@@ -44,6 +44,8 @@ dependencies:
   shared_preferences: ^2.2.2
   adhan: ^2.0.0+1
   table_calendar: ^3.0.9
+  firebase_auth: ^4.15.3
+  firebase_core: ^2.24.2
 
 
  
